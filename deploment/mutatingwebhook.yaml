@@ -1,0 +1,24 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: mutating-webhook-example-cfg
+  labels:
+    app: admission-webhook-example
+webhooks:
+  - name: mutating-example.zyc.com
+    sideEffects: None
+    admissionReviewVersions: ["v1"]
+    clientConfig:
+      service:
+        name: admission-webhook-example-svc
+        namespace: default
+        path: "/mutate"
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUMvakNDQWVhZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFWTVJNd0VRWURWUVFERXdwcmRXSmwKY201bGRHVnpNQjRYRFRJME1Ea3dOREE0TWpJeE4xb1hEVE0wTURrd01qQTRNakl4TjFvd0ZURVRNQkVHQTFVRQpBeE1LYTNWaVpYSnVaWFJsY3pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBTWdQCnlaVGpnQ3NaK05SR2NlYm5VOVRyeTFvd1kreXQ2Tnp5MTNaQzZXQ0FuaTVXTDZEdnNXUzg0YnAyaHlMNE9VSmsKSXpNWlEzOVRLQ3RURWYwelpnV1dtTzFhNUFTc3RTT2RIaTB6K2ZxaVIzMERCSWRxcVNyS1NJWlNZM0xFQll2Qgp1bTNUQ2RaNkd4SWV6djl2dkNyR1RGV1JzY2RGaHRNeE1HZnZKUnVtbWR2ZXhHaWRoMjFreGlyQlk2SHF2MHMwCm94Z0VnUzFyMlRra055ZEVtdGRvKzI0eEtWWDRCYVpFR0hlU1dDVUpjR2NGK2ErOE5VWWFSUis1NHBwSDRsZ2kKelJJeVhBa1NBOFhDK09IcFZRa1VFQlVhSWNJZFpCQjY0THRrbzR4clMrdmtZUUZ1NEM3NXhEY05PREJGWWNHagorVWpmRGQ0ZzBpTCtSMW5yK1JNQ0F3RUFBYU5aTUZjd0RnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCCi93UUZNQU1CQWY4d0hRWURWUjBPQkJZRUZBekd1bzBXVWtCWElCZTFCeC9YZG9uTTRxVUFNQlVHQTFVZEVRUU8KTUF5Q0NtdDFZbVZ5Ym1WMFpYTXdEUVlKS29aSWh2Y05BUUVMQlFBRGdnRUJBQ2tNNzdaWjFXck1rb3orL08wawo0NDMrakN3ekhpSXhIY0JBNzU4V0lzMXdTb2FnMnAvdEJJOHFIemNUT0JFM2pXZjFzamZ0T2tnOU9nLytxTmZyCnQ2V3JnRW8rSUZXbjJOcFdsVDNGbit3dnNzVjJDQVg3MHp3YmlpMlRlWlVPMTk4MGdVTWh0am82UEhtbjdFbm0Kd2ZIaUNsWmh4RmFLN09Ua3hQVTVHS1daSHdBY0RIbGtwWCtqb09pWXpLdjNjcko2WG1HYzFkeG5GSHc2UXNFWApmZGlnQkwzVGFnM0dvL3dXNHlMaW4veDI1dWROTVdFYStlbTVUN3JKanFMdnkwT0wrVjN2VGVqTml2SHNZQkJJCnZUVWlxaC9zaXhnR3luYUFIeFNwN0kxUHMrOStTSGNhSXRpeTBEVnBuRUh2Ry8wakozZjdWWnhYa3pFU1d0bTMKRGNzPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+    rules:
+      - operations: [ "CREATE" ]
+        apiGroups: ["apps", ""]
+        apiVersions: ["v1"]
+        resources: ["deployments","services"]
+    namespaceSelector:
+      matchLabels:
+        admission-webhook-example: enabled
