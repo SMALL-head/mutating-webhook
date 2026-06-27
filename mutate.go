@@ -2,9 +2,11 @@ package main
 
 import (
 	"encoding/json"
+
 	"github.com/golang/glog"
 	admissionv1 "k8s.io/api/admission/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/klog/v2"
 )
 
 const (
@@ -27,7 +29,7 @@ func mutateFunc(ar admissionv1.AdmissionReview) *admissionv1.AdmissionResponse {
 	raw := ar.Request.Object.Raw
 	err := json.Unmarshal(raw, &obj)
 	if err != nil {
-		glog.Errorf("json转换失败，err=%s", err)
+		klog.Errorf("json转换失败，err=%s", err)
 		return toV1AdmissionErrorResp(err)
 	}
 
@@ -51,6 +53,6 @@ func mutateFunc(ar admissionv1.AdmissionReview) *admissionv1.AdmissionResponse {
 		resp.Patch = []byte(updateLabelPatch)
 	default:
 	}
-	
+
 	return resp
 }

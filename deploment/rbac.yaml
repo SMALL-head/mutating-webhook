@@ -14,16 +14,9 @@ metadata:
     app: admission-webhook-example
 rules:
 - apiGroups:
-  - qikqiak.com
-  resources:
-  - "*"
-  verbs:
-  - "*"
-- apiGroups:
   - ""
   resources:
   - pods
-  - events
   verbs:
   - "*"
 - apiGroups:
@@ -31,16 +24,8 @@ rules:
   resources:
   - deployments
   - daemonsets
-  - replicasets
-  - statefulsets
   verbs:
   - "*"
-- apiGroups:
-  - autoscaling
-  resources:
-  - '*'
-  verbs:
-  - '*'
 
 ---
 kind: ClusterRoleBinding

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"crypto/tls"
 	"flag"
 	"fmt"
@@ -52,4 +53,5 @@ func main() {
 	<-signalChan
 
 	klog.Infof("Got OS shutdown signal, shutting down webhook server gracefully...")
+	whsvr.server.Shutdown(context.Background())
 }

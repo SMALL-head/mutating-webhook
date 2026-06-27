@@ -15,7 +15,7 @@ spec:
       labels:
         app: admission-webhook-example
     spec:
-      serviceAccount: admission-webhook-example-sa
+      # serviceAccount: admission-webhook-example-sa
       containers:
         - name: admission-webhook-example
           image: registry.cn-shanghai.aliyuncs.com/carl-zyc/admission-webhook-server:v1
